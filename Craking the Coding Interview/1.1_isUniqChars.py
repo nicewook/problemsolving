@@ -28,3 +28,10 @@ class isUniqCharsTest(unittest.TestCase):
         input_not_unique = "abcdea"
         self.assertTrue(isUniqChars(input_unique))
         self.assertFalse(isUniqChars(input_not_unique))
+
+#jhs test
+result=isUniqChars("adbdsetsdf")
+if result == True:
+    print "ttttt"
+else:
+    print "ffffff"

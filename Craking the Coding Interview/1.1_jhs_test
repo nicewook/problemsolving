@@ -1,0 +1,43 @@
+"""
+return true if the string doesn't have duplicate character
+return false if the string has duplicate character
+"""
+import unittest
+
+def isUniqChars(str):
+    if len(str) > 256:
+        return False
+
+    hash = [False] * 256
+
+    for ch in str:
+        if hash[ord(ch)] is True:
+            return False
+        else:
+            hash[ord(ch)] = True
+    return True
+
+input_uniq="abdesglj"
+input_not_uniq="adwlkhoihgnlkjesa"
+
+class isUniqCharsTest(unittest.TestCase):
+    def test(self):
+
+        self.assertTrue(isUniqChars(input_uniq))
+        self.assertFalse(isUniqChars(input_not_uniq))
+
+result1 = isUniqChars(input_uniq)
+result2 = isUniqChars(input_not_uniq)
+
+if result1 is True:
+    print("hahaha Result2 is True")
+else:
+    print("Oh no Result1 is False")
+
+if result2 is True:
+    print("hahaha Result2 is True")
+else:
+    print("Oh no Result2 is False")
+
+if __name__ == "__main__":
+    unittest.main()

@@ -36,3 +36,6 @@ if result == True:
     print "ttttt"
 else:
     print "ffffff"
+
+if __name__ == "__main__":
+    unittest.main()

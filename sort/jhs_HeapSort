@@ -1,0 +1,90 @@
+__author__ = 'Minsuk Heo'
+#=======================================================================
+#  Title: Heapsort
+#
+#  Statement:
+#  Given a disordered list of integers (or any other items),
+#  rearrange the integers in natural order.
+#
+#  Sample Input: [8,5,3,1,9,6,0,7,4,2,5]
+#  Sample Output: [0,1,2,3,4,5,5,6,7,8,9]
+#
+#  Time Complexity of Solution:
+#  Best O(nlog(n)); Average O(nlog(n)); Worst O(nlog(n)).
+#
+#  Approach:
+#  Heap sort happens in two phases. In the first phase, the array
+#  is transformed into a heap. A heap is a binary tree where
+#  1) each node is greater than each of its children
+#  2) the tree is perfectly balanced
+#  3) all leaves are in the leftmost position available.
+#  In phase two the heap is continuously reduced to a sorted array:
+#  1) while the heap is not empty
+#  - remove the top of the head into an array
+#  - fix the heap.
+#  Heap sort was invented by John Williams not by B. R. Heap.
+#
+#  MoveDown:
+#  The movedown method checks and verifies that the structure is a heap.
+#
+#  Technical Details:
+#  A heap is based on an array just as a hashmap is based on an
+#  array. For a heap, the children of an element n are at index
+#  2n+1 for the left child and 2n+2 for the right child.
+#
+#  The movedown function checks that an element is greater than its
+#  children. If not the values of element and child are swapped. The
+#  function continues to check and swap until the element is at a
+#  position where it is greater than its children.
+#=======================================================================
+
+def heapsort(a):
+
+    #배열의 두 인덱스의 값을 바꿔준다.
+    def swap(a,i,j):
+        tmp = a[i]
+        a[i] = a[j]
+        a[j] = tmp
+
+    def siftdown(a, i, size):
+        # i번째 배열의 값을 가지는 노드의 자식은 이진트리에서 2*i+1과 2*i+2로 구할 수 있다. 
+        l = 2*i+1
+        r = 2*i+2
+        
+        # 현시점에서는 i번째 배열의 값이 부모이므로 가장 큰 값을 가진다고 가정한다. 
+        largest = i
+        
+        # 우선 l이 존재하는지 확인은 하고, 부모보다 크면 가장 큰 값은 left에 있다고 본다.
+        if l <= size-1 and a[l] > a[i]:
+            largest = l
+            
+        # 마찬가지로 r이 존재하는지 확인한 다음, 현시점 가장 큰값과 비교해보고 크면 right에 있다고 본다. 
+        if r <= size-1 and a[r] > a[largest]:
+            largest = r
+        
+        # 위의 두 if문을 통해서 가장 큰 값이 원래 부모와 다르면 swap 해준다. 
+        if largest != i:
+            swap(a, i, largest)
+            
+            # 이렇게 한 번 바뀌면, 원래 부모가 자식노드의 자식노드보다 더 작을 수도 있으니 이것도 체크해준다. 
+            siftdown(a, largest, size)
+
+    # 전체 배열의 절반값을 찾아서 siftdown에 넣어준다.
+    # 힙 트리는 맨 아래 노드는 siftdown 할 필요가 없기 때문이다.
+    def heapify(a, size):
+        p = (size/2)-1
+        while p>=0:
+            siftdown(a, p, size)
+            p -= 1
+
+    size = len(a)
+    heapify(a, size)
+    end = size-1
+    while(end > 0):
+        swap(a, 0, end)
+        siftdown(a, 0, end)
+        end -= 1
+
+arr = [1,3,2,4,9,7]
+heapsort(arr)
+print(arr)
